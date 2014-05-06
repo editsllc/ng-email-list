@@ -1,0 +1,23 @@
+{
+  "name": "ng-email-list",
+  "version": "0.0.0",
+  "description": "Angular.js directive that validates email address in a text area",
+  "main": "emailList.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/editseras/ng-email-list.git"
+  },
+  "keywords": [
+    "angularjs",
+    "email",
+    "email-list"
+  ],
+  "author": "EdITS/ERAS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/editseras/ng-email-list/issues"
+  }
+}
