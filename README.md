@@ -19,15 +19,15 @@ Register the directive.
 
 ##Usage
 
-```
-<email-list ng-model=”emails”></email-list>
-```
+    <email-list ng-model="emails"></email-list>
 
 Optional Usage:
 
-```
-<email-list ng-model="model" rejected="rejects" repeat="repeats"></email-list>
-```
+    <email-list ng-model="model" rejected="rejects" repeat="repeats"></email-list>
+
+If you are using angular 1.3 or greater you can debounce the input:
+
+    <email-list ng-model="emails" ng-model-options="{debounce : 1000}"></email-list>
 
 ###Model
 
