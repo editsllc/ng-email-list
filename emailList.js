@@ -24,6 +24,9 @@ module.exports = [function () {
         var parsed = [];
         $scope.rejected = [];
 
+        if (value === undefined) {
+          return parsed;
+        }
         angular.forEach(value.split(','), function (email) {
           email = email.trim();
           if (EMAIL_REX.test(email)) {
