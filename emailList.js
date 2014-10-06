@@ -59,7 +59,7 @@ module.exports = [function () {
         } else {
           model.$setValidity('email', true);
         }
-        if (attrs.repeat && $scope.repeat.length !== 0) {
+        if (attrs.repeat && $scope.repeat && $scope.repeat.length !== 0) {
           model.$setValidity('repeat', false);
           error = true;
         } else {

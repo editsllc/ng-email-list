@@ -1,6 +1,6 @@
 {
   "name": "ng-email-list",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Angular.js directive that validates email address in a text area",
   "main": "emailList.js",
   "scripts": {
