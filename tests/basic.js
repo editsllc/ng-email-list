@@ -39,6 +39,7 @@ describe('Email-List', function () {
   };
 
   it('should compile the directive', function () {
+    makeTest();
     assert.equal(template.prop('tagName'), 'TEXTAREA');
   });
    
