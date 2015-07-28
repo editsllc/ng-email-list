@@ -17,7 +17,7 @@ module.exports = [function () {
       'repeat' : '=repeat'
     },
     'replace' : true,
-    'template' : '<textarea><textarea>',
+    'template' : '<textarea></textarea>',
     'link' : function ($scope, elem, attrs, model) {
 
       model.$parsers.push(function (value) {
