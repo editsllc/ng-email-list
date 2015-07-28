@@ -39,15 +39,14 @@ describe('Email-List', function () {
   };
 
   it('should compile the directive', function () {
-    makeTest('');
     assert.equal(template.prop('tagName'), 'TEXTAREA');
   });
-
+   
   it('should validite on one valid email', function () {
     makeTest('test@test.com');
     assert.equal(scope.emails.length, 1);
     assert.equal(scope.emails[0], 'test@test.com');
-    assert(template.hasClass('ng-valid'), 'ng-valid class is not set');
+    assert(template.hasClass('ng-valid'), 'ng-valid should be set');
   });
 
   it('should validate on two valid emails', function () {
@@ -89,6 +88,17 @@ describe('Email-List', function () {
     assert.equal(scope.emails[1], 'test@test.com');
   });
 
+  it('should clear the invalid error', function () {
+    makeTest('invalid, test@test.com');
+    assert(template.hasClass('ng-invalid-email'), 'invalid-email is not set');
+    assert(template.hasClass('ng-invalid'), 'invalid should be set');
+    template.val('test@test.com');
+    template.triggerHandler('input');
+    scope.$digest();
+    assert(template.hasClass('ng-valid'), 'ng-valid class should be set');
+    assert(!template.hasClass('ng-invalid'), 'invalid should not be set');
+  });
+
   it('should validate with repeated emails', function () {
     makeTest('test@test.com, test@test.com');
     assert(template.hasClass('ng-valid'), 'valid should be set');
@@ -107,5 +117,16 @@ describe('Email-List', function () {
     assert.equal(scope.emails.length, 2);
     assert.equal(scope.emails[0], 'test@test.com');
     assert.equal(scope.emails[1], 'test@test.com');
+  });
+
+  it('should clear the repeate error', function () {
+    makeTest('test@test.com, test@test.com', true);
+    assert(template.hasClass('ng-invalid-repeat'), 'invalid-email is not set');
+    assert(template.hasClass('ng-invalid'), 'invalid should be set');
+    template.val('test@test.com, test@test2.com');
+    template.triggerHandler('input');
+    scope.$digest();
+    assert(template.hasClass('ng-valid'), 'ng-valid class should be set');
+    assert(!template.hasClass('ng-invalid'), 'invalid should not be set');
   });
 });
