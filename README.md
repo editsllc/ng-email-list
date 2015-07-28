@@ -31,20 +31,20 @@ You can either self host the script found in `dist/ng-email-list.js` or use brow
 
 #Usage
 
-    <email-list ng-model="emails"></email-list>
+    <ng-email-list ng-model="emails"></ng-email-list>
 
 Optional Usage:
 
-    <email-list ng-model="model" rejected="rejects" repeat="repeats"></email-list>
+    <ng-email-list ng-model="model" rejected="rejects" repeat="repeats"></ng-email-list>
 
 If you are using angular 1.3 or greater you can debounce the input:
 
-    <email-list ng-model="emails" ng-model-options="{debounce : 1000}"></email-list>
+    <ng-email-list ng-model="emails" ng-model-options="{debounce : 1000}"></ng-email-list>
 
 NOTE: If you want your model value to be updated even on invalid input, set the
 `ng-model-options="{allowInvaid: true}"`
 
-    <email-list ng-model="emails" ng-model-options="{allowInvalid : true}"></email-list>
+    <ng-email-list ng-model="emails" ng-model-options="{allowInvalid : true}"></ng-email-list>
 
 ##Model
 
