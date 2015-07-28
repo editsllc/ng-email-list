@@ -1,10 +1,11 @@
 {
   "name": "ng-email-list",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Angular.js directive that validates email address in a text area",
-  "main": "emailList.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "make build",
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,14 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/editseras/ng-email-list/issues"
+  },
+  "devDependencies": {
+    "angular": "^1.4.3",
+    "angular-mocks": "^1.4.3",
+    "karma": "^0.13.3",
+    "karma-browserify": "^4.2.1",
+    "karma-cli": "^0.1.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0"
   }
 }
