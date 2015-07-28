@@ -21,7 +21,6 @@ module.exports = [function () {
     'link' : function ($scope, elem, attrs, model) {
 
       model.$validators.email = function (modelValue) {
-        console.log(modelValue);
         if (modelValue === undefined) {
           return true;
         }
@@ -53,7 +52,6 @@ module.exports = [function () {
         angular.forEach(parsed, function (val, i) {
           parsed[i] = val.trim();
         });
-        console.log(parsed);
         return parsed;
       });
     }

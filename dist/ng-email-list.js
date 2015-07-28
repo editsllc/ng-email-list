@@ -34,9 +34,12 @@ module.exports = [function () {
     'template' : '<textarea></textarea>',
     'link' : function ($scope, elem, attrs, model) {
 
-      $scope.rejected = [];
-
       model.$validators.email = function (modelValue) {
+        console.log(modelValue);
+        if (modelValue === undefined) {
+          return true;
+        }
+        $scope.rejected = [];
         angular.forEach(modelValue, function (email) {
           if (!EMAIL_REX.test(email)) {
             $scope.rejected.push(email);
@@ -46,8 +49,11 @@ module.exports = [function () {
       };
 
       if ($scope.repeat) {
-        $scope.repeat = [];
         model.$validators.repeat = function (modelValue) {
+          $scope.repeat = [];
+          if (modelValue === undefined) {
+            return true;
+          }
           //TODO make this <IE9 compatable
           $scope.repeat = modelValue.filter(function (value, index, self) {
             return self.indexOf(value) !== index;
@@ -61,6 +67,7 @@ module.exports = [function () {
         angular.forEach(parsed, function (val, i) {
           parsed[i] = val.trim();
         });
+        console.log(parsed);
         return parsed;
       });
     }
