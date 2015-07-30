@@ -35,6 +35,12 @@ module.exports = [function () {
     'link' : function ($scope, elem, attrs, model) {
 
       model.$validators.email = function (modelValue) {
+        if (model.$isEmpty(modelValue)) {
+          modelValue = [];
+        }
+        if (!angular.isArray(modelValue)) {
+          throw new Error('ng-email-list expects model to be an array.');
+        }
         if (modelValue === undefined) {
           return true;
         }
@@ -47,8 +53,15 @@ module.exports = [function () {
         return $scope.rejected.length === 0;
       };
 
-      if ($scope.repeat) {
+      if (attrs.repeat || angular.isDefined(attrs.norepeat)) {
+        console.log('repeats enabled');
         model.$validators.repeat = function (modelValue) {
+          if (model.$isEmpty(modelValue)) {
+            modelValue = [];
+          }
+          if (!angular.isArray(modelValue)) {
+            throw new Error('ng-email-list expects model to be an array.');
+          }
           $scope.repeat = [];
           if (modelValue === undefined) {
             return true;

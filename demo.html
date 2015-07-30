@@ -1,0 +1,50 @@
+<html>
+<head>
+  <script src="./node_modules/angular/angular.js"></script>
+  <script src="./dist/ng-email-list.js"></script>
+  <script>
+    var app = angular.module('myApp', ['ng-email-list']);
+    app.controller('prefill', ['$scope', function ($scope) {
+      $scope.test = ['test@test.com'];
+    }]);
+    app.controller('repeats', ['$scope', function ($scope) {
+      $scope.repeat = [];
+    }]);
+  </script>
+</head>
+<body ng-app="myApp">
+  <div>
+    <h1>Allow Invalid</h1>
+    <ng-email-list ng-model="test" rejected="rejected" ng-model-options="{allowInvalid: true}"></ng-email-list>
+    <p>Emails: {{test}}</p>
+    <p>Rejected: {{rejected}}</p>
+  </div>
+  <div>
+    <h1>Disallow Invalid</h1>
+    <ng-email-list ng-model="test2" rejected="rejected2" ng-model-options="{allowInvalid: false}"></ng-email-list>
+    <p>Emails: {{test2}}</p>
+    <p>Rejected: {{rejected2}}</p>
+  </div>
+  <div ng-controller="repeats">
+    <h1>Disallow Repeats</h1>
+    <p>This has an array of repeats.</p>
+    <ng-email-list ng-model="test3" rejected="rejected3" repeat="repeat" ng-model-options="{allowInvalid: true}"></ng-email-list>
+    <p>Emails: {{test3}}</p>
+    <p>Rejected: {{rejected3}}</p>
+    <p>Repeats: {{repeat}}</p>
+  </div>
+    <form name="testRepeats">
+    <p>This has norepeat set</p>
+    <ng-email-list name="hasRepeats" ng-model="test5" rejected="rejected5" norepeat model-options="{allowInvalid: true}"></ng-email-list>
+    <p>Emails: {{test5}}</p>
+    <p>hasRepeats : {{testRepeats.hasRepeats.$error.repeat}}</p>
+    </form>
+  <div>
+  </div>
+  <div ng-controller="prefill">
+    <h1>Prefilled values</h1>
+    <ng-email-list ng-model="test4" rejected="rejected4" ng-model-options="{allowInvalid: true}"></ng-email-list>
+    <p>Emails: {{test4}}</p>
+    <p>Rejected: {{rejected4}}</p>
+  </div>
+</body>

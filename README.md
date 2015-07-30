@@ -54,9 +54,21 @@ Model will be set with an array of valid email address. If the repeat option is 
 
 An array of invalid email addresses. Perfect for displaying more useful error messages.
 
-##Repeat (Optional)
+##Repeat (Optional) or norepeat
 
 An array of repeated email addresses. Perfect for displaying more useful error messages. **WARNING:** This feature is incompatible with IE8 or below.
+
+If you do not want an array of repeated emails you can set `norepeats`.
+
+```
+<ng-email-list norepeat ng-model="emails"></ng-email-list>
+
+<ng-email-list ng-model="emails" repeat="initializedArray"></ng-email-list>
+
+<ng-email-list ng-model="emails" repeat="undefinedVar" norepeat></ng-email-list>
+
+NOTE: arrayOfRepeats must be an empty arry initailized before the directive or you will need to include norepeat.
+```
 
 ##Form Validity
 
