@@ -54,7 +54,6 @@ module.exports = [function () {
       };
 
       if (attrs.repeat || angular.isDefined(attrs.norepeat)) {
-        console.log('repeats enabled');
         model.$validators.repeat = function (modelValue) {
           if (model.$isEmpty(modelValue)) {
             modelValue = [];
