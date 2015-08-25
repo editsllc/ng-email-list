@@ -70,6 +70,14 @@ If you do not want an array of repeated emails you can set `norepeats`.
 NOTE: arrayOfRepeats must be an empty arry initailized before the directive or you will need to include norepeat.
 ```
 
+##Brackets (Optional)
+
+Parser removes all occurrences of `<` and `>` before validation.
+
+```
+<ng-email-list ng-model="emails" brackets></ng-email-list>
+```
+
 ##Form Validity
 
 If you use the email-list with angulars form validity you get access to the following options: `email`, `repeat`, and `invalid`.

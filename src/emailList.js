@@ -59,6 +59,14 @@ module.exports = [function () {
         }
       }
 
+      if (angular.isDefined(attrs.brackets)) {
+        model.$parsers.push(function (value) {
+          var cleaned = value.replace('<', '');
+          cleaned = cleaned.replace('>', '');
+          return cleaned;
+        });
+      }
+
       model.$parsers.push(function (value) {
         var parsed = value.split(',');
         angular.forEach(parsed, function (val, i) {

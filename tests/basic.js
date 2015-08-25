@@ -25,19 +25,30 @@ describe('Email-List', function () {
     template = undefined;
   });
 
-  makeTest = function (input, repeat, scopeData, norepeat) {
+  makeTest = function (input, scopeData, opts) {
     scope = rs.$new();
     angular.forEach(scopeData, function (val, key) {
       scope[key] = val;
     });
-    var html = '<ng-email-list ng-model="emails" rejected="rejected" ng-model-options="{allowInvalid : true}"></ng-email-list>';
-    if (repeat) {
-      html = '<ng-email-list ng-model="emails" rejected="rejected" repeat="repeats" ng-model-options="{allowInvalid : true}"></ng-email-list>';
+    opts = opts || {};
+    var html = '<ng-email-list ng-model="emails" ';
+    if (!opts.disableRejected) {
+      html += 'rejected="rejected" ';
+    }
+    if (!opts.disableInvalid) {
+      html += 'ng-model-options="{allowInvalid : true}" ';
+    }
+    if (opts.repeats) {
+      html += 'repeat="repeats" ';
       scope.repeats = [];
     }
-    if (norepeat) {
-    var html = '<ng-email-list ng-model="emails" rejected="rejected" norepeat ng-model-options="{allowInvalid : true}"></ng-email-list>';
+    if (opts.norepeat) {
+      html += 'norepeat ';
     }
+    if (opts.brackets) {
+      html += 'brackets ';
+    }
+    html += '></ng-email-list>';
     template = cc(html)(scope);
     if (input) {
       template.val(input);
@@ -116,8 +127,8 @@ describe('Email-List', function () {
     assert.equal(scope.emails[1], 'test@test.com');
   });
 
-  it('should invalidate with repeate option and repeated emails', function () {
-    makeTest('test@test.com, test@test.com', true);
+  it('should invalidate with repeat option and repeated emails', function () {
+    makeTest('test@test.com, test@test.com', {}, {'repeats' : true});
     assert(template.hasClass('ng-invalid-repeat'), 'ng-invaild-repeat should be set');
     assert(!template.hasClass('ng-invalid-email'), 'ng-invalid-email should not be set');
     assert(template.hasClass('ng-invalid'), 'ng-invalid should be set');
@@ -128,8 +139,8 @@ describe('Email-List', function () {
     assert.equal(scope.emails[1], 'test@test.com');
   });
 
-  it('should clear the repeate error', function () {
-    makeTest('test@test.com, test@test.com', true);
+  it('should clear the repeat error', function () {
+    makeTest('test@test.com, test@test.com', {}, {'repeats' : true});
     assert(template.hasClass('ng-invalid-repeat'), 'invalid-repeat is not set');
     assert(template.hasClass('ng-invalid'), 'invalid should be set');
     template.val('test@test.com, test@test2.com');
@@ -140,14 +151,14 @@ describe('Email-List', function () {
   });
 
   it('should disallow repeats with the norepeat attr', function () {
-    makeTest('test@test.com, test@test.com', false, {}, true);
+    makeTest('test@test.com, test@test.com', {}, {'norepeat' : true});
     assert(template.hasClass('ng-invalid-repeat'), 'invalid-repeat is not set');
     assert(template.hasClass('ng-invalid'), 'invalid should be set');
   });
 
   it('should validate with prefilled module data', function () {
     try {
-      makeTest(false, false, {'emails' : ["test@test.com"]});
+      makeTest(false, {'emails' : ["test@test.com"]});
       assert.equal(scope.emails.length, 1);
       assert(template.hasClass('ng-valid'), 'ng-valid class should be set');
     } catch (e) {
@@ -157,10 +168,17 @@ describe('Email-List', function () {
 
   it('should throw and error with invalid model updates', function () {
     try { 
-      makeTest(false, false, {'emails' : "bad"});
+      makeTest(false, {'emails' : "bad"});
       throw new Error('This should not be reached');
     } catch (e) {
       assert.throws(e);
     }
+  });
+
+  it('should clean <test@test.com>', function () {
+    makeTest('<test@test.com>', {}, {'brackets' : true});
+    assert.equal(scope.emails.length, 1);
+    assert.equal(scope.emails[0], 'test@test.com');
+    assert(template.hasClass('ng-valid'), 'ng-valid class is not set');
   });
 });
