@@ -73,12 +73,27 @@ module.exports = [function () {
         }
       }
 
+      if (angular.isDefined(attrs.brackets)) {
+        model.$parsers.push(function (value) {
+          //@TODO make this a REGEX
+          var cleaned = value.split('<').join('');
+          cleaned = cleaned.split('>').join('');
+          return cleaned;
+        });
+      }
+
       model.$parsers.push(function (value) {
         var parsed = value.split(',');
         angular.forEach(parsed, function (val, i) {
           parsed[i] = val.trim();
         });
         return parsed;
+      });
+
+      model.$formatters.push(function (value) {
+        if (value) {
+          return value.join(',\n');
+        }
       });
     }
   };

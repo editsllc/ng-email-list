@@ -167,7 +167,7 @@ describe('Email-List', function () {
   });
 
   it('should throw and error with invalid model updates', function () {
-    try { 
+    try {
       makeTest(false, {'emails' : "bad"});
       throw new Error('This should not be reached');
     } catch (e) {
@@ -180,5 +180,18 @@ describe('Email-List', function () {
     assert.equal(scope.emails.length, 1);
     assert.equal(scope.emails[0], 'test@test.com');
     assert(template.hasClass('ng-valid'), 'ng-valid class is not set');
+  });
+
+  it('should clean two <>', function () {
+    makeTest('<test@test.com>, <test2@test.com>', {}, {'brackets' : true});
+    assert.equal(scope.emails.length, 2);
+    assert.equal(scope.emails[0], 'test@test.com');
+    assert.equal(scope.emails[1], 'test2@test.com');
+    assert(template.hasClass('ng-valid'), 'ng-valid class is not set');
+  });
+
+  it.skip('should validate format', function () {
+    makeTest(false, {'emails' : ["test@test.com", "test2@test.com"]});
+    //I don't know how to test this.
   });
 });

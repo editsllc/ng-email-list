@@ -109,6 +109,10 @@ You can display human friendly error messages in the following manner:
 </form>
 ```
 
+##Formatters
+If you set the `model` (with an array), each email will be formatted in the text
+area with a new line.
+
 #Developers Guide
 
 Clone this repository and then run `npm install`.

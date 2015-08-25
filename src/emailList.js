@@ -61,8 +61,9 @@ module.exports = [function () {
 
       if (angular.isDefined(attrs.brackets)) {
         model.$parsers.push(function (value) {
-          var cleaned = value.replace('<', '');
-          cleaned = cleaned.replace('>', '');
+          //@TODO make this a REGEX
+          var cleaned = value.split('<').join('');
+          cleaned = cleaned.split('>').join('');
           return cleaned;
         });
       }
@@ -73,6 +74,12 @@ module.exports = [function () {
           parsed[i] = val.trim();
         });
         return parsed;
+      });
+
+      model.$formatters.push(function (value) {
+        if (value) {
+          return value.join(',\n');
+        }
       });
     }
   };
