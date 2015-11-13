@@ -50,7 +50,7 @@ describe('Email-List', function () {
     }
     html += '></ng-email-list>';
     template = cc(html)(scope);
-    if (input) {
+    if (input !== false) {
       template.val(input);
       template.triggerHandler('input');
     }
@@ -190,8 +190,19 @@ describe('Email-List', function () {
     assert(template.hasClass('ng-valid'), 'ng-valid class is not set');
   });
 
+  it('should validate on no input after dirty form', function () {
+    makeTest('test@test.com', {}, {});
+    assert(template.hasClass('ng-valid'), 'valid should be set');
+    template.val('');
+    template.triggerHandler('input');
+    scope.$digest();
+    assert(template.hasClass('ng-valid'), 'ng-valid class should be set');
+    assert(!template.hasClass('ng-invalid'), 'invalid should not be set');
+  });
+
   it.skip('should validate format', function () {
     makeTest(false, {'emails' : ["test@test.com", "test2@test.com"]});
+    //@TODO make this work
     //I don't know how to test this.
   });
 });
