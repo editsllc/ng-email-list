@@ -70,7 +70,7 @@ module.exports = [function () {
             return self.indexOf(value) !== index;
           });
           return $scope.repeat.length === 0;
-        }
+        };
       }
 
       if (angular.isDefined(attrs.brackets)) {
@@ -83,6 +83,9 @@ module.exports = [function () {
       }
 
       model.$parsers.push(function (value) {
+        if (value === '') {
+          return [];
+        }
         var parsed = value.split(',');
         angular.forEach(parsed, function (val, i) {
           parsed[i] = val.trim();
